@@ -23,16 +23,38 @@ export class ErrorOr<T, E extends Error> {
         return this.value !== undefined;
     }
 
-    unwrap(): T {
+    release(): T {
         if (this.isError()) {
             throw new Error('Cannot unwrap an error result');
         }
         return this.value as T;
     }
 
-    unwrapErr(): E {
+    releaseError(): E {
         if (this.isOk()) {
             throw new Error('Cannot unwrapErr an ok result');
+        }
+        return this.error as E;
+    }
+
+    releaseOr(defaultValue: T): T {
+        return this.isOk() ? this.value as T : defaultValue;
+    }
+
+    releaseErrOr(defaultError: E): E {
+        return this.isError() ? this.error as E : defaultError;
+    }
+
+    releaseOrThrow(): T {
+        if (this.isError()) {
+            throw this.error as E;
+        }
+        return this.value as T;
+    }
+
+    releaseErrOrThrow(): E {
+        if (this.isOk()) {
+            throw new Error('Cannot releaseError an ok result');
         }
         return this.error as E;
     }

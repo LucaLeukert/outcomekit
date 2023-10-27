@@ -2,7 +2,7 @@
   "name": "outcomekit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
   },
@@ -12,5 +12,12 @@
   "devDependencies": {
     "typedoc": "^0.25.2",
     "typescript": "^5.2.2"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }
